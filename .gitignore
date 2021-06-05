@@ -104,6 +104,7 @@ Backup of *.doc*
 # Pascal compiler
 *.$$$
 *.def
+*.o
 *.ow
 *.res
 *.s

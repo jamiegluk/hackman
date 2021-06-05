@@ -1,11 +1,12 @@
 @echo off
 rem Arranges compiled HackMan files into dist folder
 
-echo. Hackman postbuild by Jamie Lievesley
+echo.
+echo [95mHackman postbuild by Jamie Lievesley[0m
 echo.
 
 echo.
-echo Checking compiled exe files
+echo [36m# Checking compiled exe files...[0m
 
 if not exist src\hackman\hackman.exe (
   echo [91mERROR: src\hackman\hackman.exe not found![0m  1>&2
@@ -26,13 +27,16 @@ if not exist src\create-highscores-file\createHighscoresFile.exe (
   exit 1
 )
 
+echo.
+echo All files exist
+
 
 echo.
-echo Clearing dist
+echo [36m# Clearing dist...[0m
 @echo on
 
 del /s /q /f dist
-rmdir /s /q /f dist
+rmdir /s /q dist
 if not exist dist mkdir dist
 if not exist dist\prototype mkdir dist\prototype
 if not exist dist\hackman mkdir dist\hackman
@@ -41,7 +45,7 @@ if not exist dist\create-highscores-file mkdir dist\create-highscores-file
 
 @echo off
 echo.
-echo Moving exe files
+echo [36m# Moving exe files...[0m
 @echo on
 
 move /Y src\prototype\pacman.exe dist\prototype\pacman.exe
@@ -51,38 +55,48 @@ move /Y src\create-highscores-file\createHighscoresFile.exe dist\create-highscor
 
 @echo off
 echo.
-echo Creating highscores file
+echo [36m# Creating highscores file...[0m
 @echo on
 
 cd dist\create-highscores-file
-call createHighscoresFile.exe
+echo | createHighscoresFile.exe
 cd ../..
 xcopy /s dist\create-highscores-file\highscores dist\hackman\
 
 
 @echo off
 echo.
-echo Copying additional files
+echo [36m# Copying mazes...[0m
+@echo on
+
+xcopy /s src\prototype\map.txt dist\prototype\
+xcopy /s src\hackman\maze.txt dist\hackman\
+xcopy /s mazes dist\hackman\mazes\
+
+
+@echo off
+echo.
+echo [36m# Copying additional files...[0m
 @echo on
 
 xcopy /s doc\README.md dist\hackman\
-xcopy /s LICENSE dist\hackman\
+copy /y LICENSE dist\hackman\
 
 
 @echo off
 echo.
 echo [92mDONE[0m
-echo[
-echo [7mFind exe in dist/hackman folder.
-echo If copying to other folder: copy both "hackman.exe" and "highscores" and "maze.txt".
-echo[
-
-@echo off
 echo.
-echo Running app...
-@echo on
+echo [7mFind exe in dist/hackman folder.
+echo If copying to other folder: copy both "hackman.exe" and "highscores" and "maze.txt".[0m
+
+echo.
+echo [36m# Running app...[0m
 
 cd dist/hackman
+@echo on
 start hackman.exe
+echo.
+@echo off
 
 pause

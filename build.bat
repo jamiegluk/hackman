@@ -2,7 +2,7 @@
 rem Compiles HackMan application
 rem and arranges files into dist folder
 
-echo HackMan builder by Jamie Lievesley
+echo [95mHackMan builder by Jamie Lievesley[0m
 echo.
 
 
@@ -13,41 +13,59 @@ if %errorlevel% neq 0 (
   exit 1
 )
 
+rem Alias compiler command
+set _fpc=fpc -Mobjfpc -Sg -Sc -Un -FcCP437 -dDisableUTF8RTL -Fu"%FPCDIR%\units\*\rtl-console" -Fu"C:\tools\freepascal\units\*\rtl-console" $*
+
 
 echo.
-echo Compiling prototype
-@echo on
+echo [36m# Compiling prototype...[0m
 
 cd src\prototype
-fpc pacman.pas
+@echo on
+%_fpc% pacman.pas
+@echo off
+if %errorlevel% neq 0 (
+  echo [91mERROR: Build failed[0m  1>&2
+  pause
+  exit 1
+)
 cd ../..
 
 
-@echo off
 echo.
-echo Compiling hackman
-@echo on
+echo [36m# Compiling hackman...[0m
 
 cd src\hackman
-fpc hackman.pas
+@echo on
+%_fpc% hackman.pas
+@echo off
+if %errorlevel% neq 0 (
+  echo [91mERROR: Build failed[0m  1>&2
+  pause
+  exit 1
+)
 cd ../..
 
 
-@echo off
 echo.
-echo Compiling highscores
-@echo on
+echo [36m# Compiling highscores...[0m
 
 cd src\create-highscores-file
-fpc createHighscoresFile.pas
+@echo on
+%_fpc% createHighscoresFile.pas
+@echo off
+if %errorlevel% neq 0 (
+  echo [91mERROR: Build failed[0m  1>&2
+  pause
+  exit 1
+)
 cd ../..
 
 
-@echo off
 echo.
 echo [92mCOMPILED[0m
-echo Running postbuild...
 echo.
-@echo on
+echo [36m# Running postbuild...[0m
 
+@echo on
 call postbuild.bat

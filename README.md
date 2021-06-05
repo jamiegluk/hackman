@@ -63,9 +63,11 @@ Then:
 
 1. Open _src/create-highscores-file/createHighscoresFile.pas_
 2. Click the green tick (Compile project).
-3. Open _src/hackman/hackman.pas_
+3. Open _src/prototype/pacman.pas_
 4. Click the green tick (Compile project).
-5. Run `postbuild.bat`
+5. Open _src/hackman/hackman.pas_
+6. Click the green tick (Compile project).
+7. Run `postbuild.bat`
 
 ## Copyright & Licensing
 
