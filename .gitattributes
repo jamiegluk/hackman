@@ -1,2 +1,47 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Details per file setting:
+#   text    These files should be normalized (i.e. convert CRLF to LF).
+#   binary  These files are binary and should be left untouched.
+#
+# Note that binary is a macro for -text -diff.
+######################################################################
+
+# Auto detect
+##   Handle line endings automatically for files detected as
+##   text and leave all files detected as binary untouched.
+##   This will handle all files NOT defined below.
+*                 text=auto
+
+# Source code
+*.pas             text
+
+# Documentation
+*.md              text
+*.txt             text
+LICENSE           text
+
+# Graphics
+*.ico             binary
+*.jpg             binary
+*.jpeg            binary
+*.png             binary
+*.gif             binary
+
+# Documents
+*.doc	            diff=astextplain
+*.DOC	            diff=astextplain
+*.docx            diff=astextplain
+*.DOCX            diff=astextplain
+*.pdf             diff=astextplain
+*.PDF             diff=astextplain
+
+# Archives
+*.zip             binary
+
+# Executables
+*.exe             binary
+
+# Ignore files (like .npmignore or .gitignore)
+*.*ignore         text
+
+# Text files where line endings should be preserved
+*.patch           -text
